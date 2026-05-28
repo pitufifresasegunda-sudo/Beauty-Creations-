@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beauty Creations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../frontend/styles/styles.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       PANTALLA DE AUTENTICACIÓN
+  ============================================= -->
+  <div id="auth-screen" class="screen active">
+
+    <div class="auth-container">
+
+      <!-- Panel izquierdo: Branding -->
+      <div class="auth-brand">
+        <div class="auth-brand-logo">
+          <img src="../logob.jpeg" alt="Beauty Creations" />
+        </div>
+      </div>
+
+
+      <!-- Panel derecho: Formularios -->
+      <div class="auth-form-panel">
+        <div id="login-form">
+          <h2>Bienvenida ✦</h2>
+          <div id="login-error" class="error-msg"></div>
+          <input type="text" id="login-identifier" placeholder="Correo o nombre de usuario" />
+          <input type="password" id="login-password" placeholder="Contraseña" />
+          <button class="btn-primary" id="btn-login">Iniciar sesión</button>
+          <div class="switch-link">¿No tienes cuenta? <a id="link-to-register">Regístrate</a></div>
+        </div>
+
+        <div id="register-form" style="display:none;">
+          <h2>Crear cuenta</h2>
+          <div id="register-error" class="error-msg"></div>
+          <div id="register-success" class="success-msg"></div>
+          <input type="text"     id="reg-fullname"  placeholder="Nombre completo" />
+          <input type="text"     id="reg-username"  placeholder="Nombre de usuario" />
+          <input type="email"    id="reg-email"     placeholder="Correo electrónico" />
+          <input type="password" id="reg-password"  placeholder="Contraseña (mín. 6 caracteres)" />
+          <input type="date"     id="reg-birthdate" placeholder="Fecha de nacimiento" />
+          <button class="btn-primary" id="btn-register">Registrarse</button>
+          <div class="switch-link">¿Ya tienes cuenta? <a id="link-to-login">Inicia sesión</a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =============================================
+       PANTALLA PRINCIPAL
+  ============================================= -->
+  <div id="app-screen" class="screen">
+
+    <nav id="main-nav">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">
+          <img src="../logob.jpeg" alt="Beauty Creations" />
+        </div>
+
+        <span class="nav-logo-text">Beauty Creations</span>
+      </div>
+
+      <div class="nav-links">
+        <a data-section="inicio" class="nav-link">Inicio</a>
+        <a data-section="skincare" class="nav-link">Skincare</a>
+        <a data-section="maquillaje" class="nav-link">Maquillaje</a>
+        <a data-section="favoritos" class="nav-link">Favoritos</a>
+      </div>
+
+      <div id="user-area">
+        <img id="user-avatar" src="" alt="Avatar" />
+        <span id="username-display"></span>
+        <div id="dropdown-menu">
+          <button data-dd-action="perfil">Mi Perfil</button>
+          <button data-dd-action="delete">Eliminar cuenta</button>
+          <button data-dd-action="logout">Cerrar sesión</button>
+        </div>
+      </div>
+    </nav>
+
+    <div id="app-content">
+
+      <!-- Barra de búsqueda y filtros -->
+      <div id="search-filter-bar" style="display:none;">
+        <input type="text" id="search-input" placeholder="Buscar productos..." />
+        <select id="sort-select">
+          <option value="">Ordenar por...</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="alpha-asc">A → Z</option>
+          <option value="alpha-desc">Z → A</option>
+        </select>
+        <div class="filter-group" id="category-filters"></div>
+      </div>
+
+      <!-- Inicio -->
+      <div id="view-inicio" class="section-view">
+        <div class="section-hero">
+          <div class="hero-content">
+            <h2>Tu belleza,<br/>tu esencia.</h2>
+            <p>Descubre la colección completa Beauty Creations</p>
+          </div>
+        </div>
+        <div class="products-grid" id="grid-inicio"></div>
+      </div>
+
+      <!-- Skincare -->
+      <div id="view-skincare" class="section-view">
+        <div class="section-hero">
+          <div class="hero-content">
+            <h2>Skincare</h2>
+            <p>Cuida y transforma tu piel con nuestra línea de cuidado</p>
+          </div>
+        </div>
+        <div class="products-grid" id="grid-skincare"></div>
+      </div>
+
+      <!-- Maquillaje -->
+      <div id="view-maquillaje" class="section-view">
+        <div class="section-hero">
+          <div class="hero-content">
+            <h2>Maquillaje</h2>
+            <p>Color, textura y glamour para cada look</p>
+          </div>
+        </div>
+        <div class="products-grid" id="grid-maquillaje"></div>
+      </div>
+
+      <!-- Favoritos -->
+      <div id="view-favoritos" class="section-view">
+        <p id="fav-empty" style="display:none;" class="no-products">
+          ✦ Aún no tienes favoritos. ¡Explora y guarda los que más te gusten!
+        </p>
+        <div class="products-grid" id="grid-favoritos"></div>
+      </div>
+
+      <!-- Detalle de producto -->
+      <div id="view-producto" class="section-view">
+        <button id="back-btn">← Volver</button>
+        <div id="product-detail"></div>
+      </div>
+
+      <!-- Perfil -->
+      <div id="view-perfil" class="section-view">
+        <div id="profile-section">
+          <h2>Mi Perfil</h2>
+          <label>Foto de perfil</label>
+          <img id="profile-avatar-preview" src="" alt="Avatar" />
+          <input type="file" id="avatar-input" accept="image/*" />
+          <label>Nombre completo</label>
+          <input type="text" id="prof-fullname" />
+          <label>Nombre de usuario</label>
+          <input type="text" id="prof-username" />
+          <label>Nueva contraseña (dejar vacío para no cambiar)</label>
+          <input type="password" id="prof-password" placeholder="Nueva contraseña" />
+          <div id="profile-msg" class="success-msg"></div>
+          <button class="btn-save-profile" id="btn-save-profile">Guardar cambios</button>
+          <button class="btn-delete-account" id="btn-open-delete">Eliminar cuenta</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal: Tiendas cercanas -->
+  <div id="stores-modal">
+    <div class="modal-content">
+      <h3>📍 Tiendas cercanas</h3>
+      <p id="stores-geo-status">Obteniendo tu ubicación...</p>
+      <div id="stores-list"></div>
+      <button id="close-stores">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Modal: Eliminar cuenta -->
+  <div id="delete-modal">
+    <div class="modal-content">
+      <h3>⚠️ Eliminar cuenta</h3>
+      <p>Esta acción es <strong>irreversible</strong>. Se eliminarán todos tus datos, favoritos y configuraciones de forma permanente.</p>
+      <p>Para confirmar, escribe tu contraseña actual:</p>
+      <input type="password" id="delete-password" placeholder="Contraseña actual" />
+      <div id="delete-error" class="error-msg"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btn-cancel-delete">Cancelar</button>
+        <button class="btn-danger" id="btn-confirm-delete">Eliminar permanentemente</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../frontend/app.js"></script>
+</body>
+</html>
+
